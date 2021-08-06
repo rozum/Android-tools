@@ -10,7 +10,14 @@ Shell scripts to facilitate routine actions when developing an Android applicati
 - __Dockerfile__
   Description of the container for build an application
   ```
+  # Build container
   docker build -t android-builder .
-  docker run --rm -v "$PWD":/home/gradle/ -w /home/gradle android-builder ./gradlew assembleDebug
+  
+  # Use container for build app
+  docker run --rm \
+      -u $(id -u ${USER}):$(id -g ${USER}) \
+      -v "$PWD":/home/gradle/ \
+      -w /home/gradle \
+      android-builder ./gradlew assembleDebug
   ```
 

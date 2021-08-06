@@ -30,7 +30,7 @@ RUN mkdir "$ANDROID_SDK_ROOT" \
     && unzip /tmp/sdk.zip \
     && rm /tmp/sdk.zip
 
-# Запускаем обновление SDK и установку build-tools, platform-tools
+# Обновление SDK и установку build-tools, platform-tools
 RUN cd ${ANDROID_SDK_ROOT}/cmdline-tools/bin/ \
     && ./sdkmanager --sdk_root=${ANDROID_SDK_ROOT} --update \
     && yes Y | ./sdkmanager --sdk_root=${ANDROID_SDK_ROOT} --install \
@@ -38,3 +38,6 @@ RUN cd ${ANDROID_SDK_ROOT}/cmdline-tools/bin/ \
         "platforms;android-${ANDROID_VERSION}" \
         "platform-tools" \
     && yes Y | ./sdkmanager --sdk_root=${ANDROID_SDK_ROOT} --licenses
+
+# Возможность обновления SDK при сборке
+RUN chmod -R a+w ${ANDROID_SDK_ROOT}
